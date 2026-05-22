@@ -2,6 +2,8 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Secret Love</title>
 
 <style>
@@ -11,11 +13,11 @@ body{
   background:radial-gradient(circle,#12000f,#000);
   color:white;
   text-align:center;
-  overflow:hidden;
 
-  /* تحسين الموبايل */
-  font-size:18px;
-  line-height:1.7;
+  overflow-y:auto;
+  overflow-x:hidden;
+
+  min-height:100vh;
 }
 
 /* شاشة الاهتزاز */
@@ -72,8 +74,9 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  height:100vh;
+  min-height:100vh;
   flex-direction:column;
+  padding:20px;
 }
 
 input,button{
@@ -95,7 +98,11 @@ button{
 }
 
 #loading{display:none;font-size:32px;}
-#content{display:none;padding:20px;}
+
+#content{
+  display:none;
+  padding:20px;
+}
 
 .name{
   font-size:40px;
@@ -129,7 +136,8 @@ button{
 }
 
 img{
-  width:90%;
+  width:95%;
+  max-width:400px;
   border-radius:15px;
   margin-top:10px;
   filter:blur(8px);
@@ -242,7 +250,7 @@ function startChat(){
 
   let msgText = `بحبك يا كل حاجة في حياتي ❤️
 كل سنة وإنتي طيبة يا عيوني 🎉
-بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي`;
+بمناسبة العيد ❤️`;
 
   chat.innerHTML='<div class="msgBox" id="typing"></div>';
 
@@ -257,7 +265,6 @@ function startChat(){
     if(i>=msgText.length){
       clearInterval(typing);
 
-      // ⭐ الزرار هنا
       let btn = document.getElementById('memBtn');
       btn.style.display='block';
 
