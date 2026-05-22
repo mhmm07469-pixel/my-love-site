@@ -14,10 +14,12 @@ body{
   color:white;
   text-align:center;
 
+  /* 🔥 أهم تعديل */
   overflow-y:auto;
   overflow-x:hidden;
-
   min-height:100vh;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 /* شاشة الاهتزاز */
@@ -74,7 +76,10 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
+
+  /* 🔥 بدل 100vh */
   min-height:100vh;
+
   flex-direction:column;
   padding:20px;
 }
@@ -105,7 +110,7 @@ button{
 }
 
 .name{
-  font-size:40px;
+  font-size:38px;
   color:#ff4d88;
   text-shadow:0 0 20px #ff4d88;
 }
@@ -137,7 +142,7 @@ button{
 
 img{
   width:95%;
-  max-width:400px;
+  max-width:420px;
   border-radius:15px;
   margin-top:10px;
   filter:blur(8px);
@@ -192,6 +197,56 @@ img.show{filter:blur(0);}
 
 <script>
 
+/* اهتزاز */
+function shakeScreen(){
+  document.body.classList.add("screenShake");
+  setTimeout(()=>document.body.classList.remove("screenShake"),500);
+}
+
+/* انفجار */
+function giftExplosion(){
+  shakeScreen();
+
+  const items = ["❤️","💖","✨","🎁","🌹","💌"];
+
+  for(let i=0;i<25;i++){
+    let el = document.createElement("div");
+    el.className = "burst";
+    el.innerText = items[Math.floor(Math.random()*items.length)];
+
+    el.style.left = "50vw";
+    el.style.top = "50vh";
+
+    let x = (Math.random() - 0.5) * 600 + "px";
+    let y = (Math.random() - 0.5) * 600 + "px";
+
+    el.style.setProperty("--x", x);
+    el.style.setProperty("--y", y);
+
+    document.body.appendChild(el);
+
+    setTimeout(()=>el.remove(),1000);
+  }
+}
+
+/* هدايا نازلة */
+function spawnGift(){
+  const emojis = ["❤️","💖","✨","🎁","🌹"];
+
+  for(let i=0;i<10;i++){
+    let el = document.createElement("div");
+    el.className = "fall";
+    el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (2 + Math.random()*2) + "s";
+
+    document.body.appendChild(el);
+
+    setTimeout(()=>el.remove(),4000);
+  }
+}
+
 function check(){
 
   if(document.getElementById('pass').value==='love mai'){
@@ -215,6 +270,8 @@ function check(){
       tick.currentTime = 0;
       tick.play();
 
+      spawnGift();
+
       count--;
 
       if(count === 0){
@@ -223,6 +280,8 @@ function check(){
 
       if(count < 0){
         clearInterval(t);
+
+        giftExplosion();
 
         setTimeout(()=>{
 
