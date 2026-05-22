@@ -12,6 +12,10 @@ body{
   color:white;
   text-align:center;
   overflow:hidden;
+
+  /* تحسين الموبايل */
+  font-size:18px;
+  line-height:1.7;
 }
 
 /* شاشة الاهتزاز */
@@ -78,15 +82,19 @@ input,button{
   border-radius:10px;
   border:none;
   font-size:16px;
+  width:90%;
+  max-width:320px;
 }
 
 button{
   background:linear-gradient(45deg,#ff4d88,#ff1f6a);
   color:white;
   cursor:pointer;
+  font-size:18px;
+  padding:14px;
 }
 
-#loading{display:none;font-size:40px;}
+#loading{display:none;font-size:32px;}
 #content{display:none;padding:20px;}
 
 .name{
@@ -98,7 +106,7 @@ button{
 #chat{
   display:none;
   text-align:right;
-  max-width:90%;
+  max-width:95%;
   margin:auto;
 }
 
@@ -110,6 +118,9 @@ button{
   display:inline-block;
   color:white;
   animation:pop 0.4s ease;
+
+  font-size:20px;
+  line-height:1.8;
 }
 
 @keyframes pop{
@@ -160,7 +171,6 @@ img.show{filter:blur(0);}
 
   <div id="chat"></div>
 
-  <!-- ✅ تم التعديل هنا فقط -->
   <button id="memBtn" style="display:none; margin-top:20px;">
     دوسي هنا ❤️
   </button>
@@ -173,57 +183,6 @@ img.show{filter:blur(0);}
 </div>
 
 <script>
-
-/* اهتزاز */
-function shakeScreen(){
-  document.body.classList.add("screenShake");
-  setTimeout(()=>document.body.classList.remove("screenShake"),500);
-}
-
-/* انفجار */
-function giftExplosion(){
-
-  shakeScreen();
-
-  const items = ["❤️","💖","✨","🎁","🌹","💌"];
-
-  for(let i=0;i<25;i++){
-    let el = document.createElement("div");
-    el.className = "burst";
-    el.innerText = items[Math.floor(Math.random()*items.length)];
-
-    el.style.left = "50vw";
-    el.style.top = "50vh";
-
-    let x = (Math.random() - 0.5) * 600 + "px";
-    let y = (Math.random() - 0.5) * 600 + "px";
-
-    el.style.setProperty("--x", x);
-    el.style.setProperty("--y", y);
-
-    document.body.appendChild(el);
-
-    setTimeout(()=>el.remove(),1000);
-  }
-}
-
-/* هدايا نازلة */
-function spawnGift(){
-  const emojis = ["❤️","💖","✨","🎁","🌹"];
-
-  for(let i=0;i<10;i++){
-    let el = document.createElement("div");
-    el.className = "fall";
-    el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
-
-    el.style.left = Math.random()*100 + "vw";
-    el.style.animationDuration = (2 + Math.random()*2) + "s";
-
-    document.body.appendChild(el);
-
-    setTimeout(()=>el.remove(),4000);
-  }
-}
 
 function check(){
 
@@ -248,8 +207,6 @@ function check(){
       tick.currentTime = 0;
       tick.play();
 
-      spawnGift();
-
       count--;
 
       if(count === 0){
@@ -258,8 +215,6 @@ function check(){
 
       if(count < 0){
         clearInterval(t);
-
-        giftExplosion();
 
         setTimeout(()=>{
 
@@ -287,7 +242,7 @@ function startChat(){
 
   let msgText = `بحبك يا كل حاجة في حياتي ❤️
 كل سنة وإنتي طيبة يا عيوني 🎉
-بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي بس عايز اعرفك حاجه حتي لو فضلنا ميت سنه منتكلمشي هتفضلي ف قلبي ي بت عارفه ليه هقولك عشان زياد ملوش غير ميوشته ومي ملهاش غير زوزتها ربنا يديني طولة العمر لغاية ما تبقي من نصيبي بس مش عايز حاجه من الدنيا غير انك تكوني حلالي بحبك ي احلي حاجه حصلتلي والحاجه ال انتي شيفاها تعب ايام واسابيع والله بس كله فدي اني اشوفك فرحانه وربنا يعلم اني لو اطول اجبلك نجمه من السما هعمل كدا `;
+بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي`;
 
   chat.innerHTML='<div class="msgBox" id="typing"></div>';
 
@@ -302,12 +257,13 @@ function startChat(){
     if(i>=msgText.length){
       clearInterval(typing);
 
-      // ✅ هنا التعديل الحقيقي
-      document.getElementById('memBtn').onclick = function(){
+      // ⭐ الزرار هنا
+      let btn = document.getElementById('memBtn');
+      btn.style.display='block';
+
+      btn.onclick = function(){
         window.location.href = "memories.html";
       };
-
-      document.getElementById('memBtn').style.display='block';
     }
 
   },40);
