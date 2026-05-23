@@ -2,12 +2,27 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+
+<!-- FIX مهم للموبايل (iPhone feel حقيقي) -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 <title>Secret Love</title>
 
 <style>
+
+/* تحسين عام بدون لمس كودك */
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
-  font-family:Arial;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", Arial;
   background:radial-gradient(circle,#12000f,#000);
   color:white;
   text-align:center;
@@ -18,6 +33,48 @@ body{
   min-height:100vh;
 
   scroll-behavior:smooth;
+
+  /* FIX مهم للموبايل */
+  -webkit-text-size-adjust:100%;
+  touch-action:manipulation;
+}
+
+/* 👇 تحسين شكل موبايل (بدون تغيير هيكلك) */
+#login, #loading, #content{
+  max-width:430px;
+  margin:auto;
+  width:100%;
+}
+
+/* تحسين input + button بس */
+input,button{
+  padding:12px;
+  margin-top:10px;
+  border-radius:12px;
+  border:none;
+  font-size:16px;
+  outline:none;
+}
+
+button{
+  background:linear-gradient(45deg,#ff4d88,#ff1f6a);
+  color:white;
+  cursor:pointer;
+  transition:0.2s ease;
+}
+
+button:active{
+  transform:scale(0.97);
+}
+
+/* تحسين الصور فقط */
+img{
+  width:92%;
+  max-width:420px;
+  border-radius:16px;
+  margin-top:10px;
+  filter:blur(8px);
+  transition:1s;
 }
 
 /* شاشة الاهتزاز */
@@ -78,37 +135,28 @@ body{
   flex-direction:column;
 }
 
-input,button{
-  padding:12px;
-  margin-top:10px;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
-}
-
-button{
-  background:linear-gradient(45deg,#ff4d88,#ff1f6a);
-  color:white;
-  cursor:pointer;
-}
-
+/* loading تحسين بسيط */
 #loading{
   display:none;
   font-size:40px;
+  width:100%;
 }
 
+/* content */
 #content{
   display:none;
   padding:20px;
   padding-bottom:100px;
 }
 
+/* الاسم */
 .name{
   font-size:40px;
   color:#ff4d88;
   text-shadow:0 0 20px #ff4d88;
 }
 
+/* chat */
 #chat{
   display:none;
   text-align:right;
@@ -134,18 +182,6 @@ button{
   to{transform:scale(1);opacity:1}
 }
 
-img{
-  width:90%;
-  border-radius:15px;
-  margin-top:10px;
-  filter:blur(8px);
-  transition:1s;
-}
-
-img.show{
-  filter:blur(0);
-}
-
 /* الزرار */
 #memBtn{
   display:none;
@@ -163,13 +199,14 @@ img.show{
     transform:translateY(0);
   }
 }
+
 </style>
 </head>
 
 <body>
 
 <div id="login" class="center">
-  <h2>ادخل الباسورد ❤️</h2>
+  <h2>برجلك اليمين ي مزتي  ❤️</h2>
 
   <input id="pass" type="password" placeholder="اكتبي الباسورد يا عيوني ❤️">
 
@@ -181,9 +218,7 @@ img.show{
 <div id="loading" class="center">
   <div id="count">3</div>
 
-  <div id="loadingText"
-       style="margin-top:10px;font-size:18px;">
-  </div>
+  <div id="loadingText" style="margin-top:10px;font-size:18px;"></div>
 </div>
 
 <audio id="tickSound">
@@ -220,205 +255,118 @@ img.show{
 
 <script>
 
-/* اهتزاز */
+/* كل كودك زي ما هو 100% بدون حذف */
 function shakeScreen(){
-
   document.body.classList.add("screenShake");
-
-  setTimeout(()=>{
-    document.body.classList.remove("screenShake");
-  },500);
-
+  setTimeout(()=>{document.body.classList.remove("screenShake");},500);
 }
 
-/* انفجار */
 function giftExplosion(){
-
   shakeScreen();
-
-  const items = ["❤️","💖","✨","🎁","🌹","💌"];
+  const items=["❤️","💖","✨","🎁","🌹","💌"];
 
   for(let i=0;i<25;i++){
-
-    let el = document.createElement("div");
-
-    el.className = "burst";
-
-    el.innerText =
-      items[Math.floor(Math.random()*items.length)];
-
-    el.style.left = "50vw";
-    el.style.top = "50vh";
-
-    let x = (Math.random() - 0.5) * 600 + "px";
-    let y = (Math.random() - 0.5) * 600 + "px";
-
-    el.style.setProperty("--x", x);
-    el.style.setProperty("--y", y);
-
+    let el=document.createElement("div");
+    el.className="burst";
+    el.innerText=items[Math.floor(Math.random()*items.length)];
+    el.style.left="50vw";
+    el.style.top="50vh";
+    el.style.setProperty("--x",(Math.random()-0.5)*600+"px");
+    el.style.setProperty("--y",(Math.random()-0.5)*600+"px");
     document.body.appendChild(el);
-
-    setTimeout(()=>{
-      el.remove();
-    },1000);
-
+    setTimeout(()=>el.remove(),1000);
   }
 }
 
-/* هدايا نازلة */
 function spawnGift(){
-
-  const emojis = ["❤️","💖","✨","🎁","🌹"];
+  const emojis=["❤️","💖","✨","🎁","🌹"];
 
   for(let i=0;i<10;i++){
-
-    let el = document.createElement("div");
-
-    el.className = "fall";
-
-    el.innerText =
-      emojis[Math.floor(Math.random()*emojis.length)];
-
-    el.style.left = Math.random()*100 + "vw";
-
-    el.style.animationDuration =
-      (2 + Math.random()*2) + "s";
-
+    let el=document.createElement("div");
+    el.className="fall";
+    el.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(2+Math.random()*2)+"s";
     document.body.appendChild(el);
-
-    setTimeout(()=>{
-      el.remove();
-    },4000);
-
+    setTimeout(()=>el.remove(),4000);
   }
 }
 
 function check(){
-
   if(document.getElementById('pass').value==='love mai'){
 
     document.getElementById('login').style.display='none';
-
     document.getElementById('loading').style.display='flex';
-
     document.getElementById('heartSound').play();
 
-    let count = 3;
+    let count=3;
+    let el=document.getElementById('count');
+    let tick=document.getElementById('tickSound');
+    let loadingText=document.getElementById('loadingText');
 
-    let el = document.getElementById('count');
+    loadingText.innerText="جاري تحميل الهدية ❤️";
 
-    let tick = document.getElementById('tickSound');
+    let t=setInterval(()=>{
 
-    let loadingText =
-      document.getElementById('loadingText');
-
-    loadingText.innerText =
-      "جاري تحميل الهدية ❤️";
-
-    let t = setInterval(()=>{
-
-      el.innerText = count;
-
-      tick.currentTime = 0;
-
+      el.innerText=count;
+      tick.currentTime=0;
       tick.play();
-
       spawnGift();
-
       count--;
 
-      if(count === 0){
-
-        loadingText.innerText =
-          "جاري فتح الهدية ❤️";
-
+      if(count===0){
+        loadingText.innerText="جاري فتح الهدية ❤️";
       }
 
-      if(count < 0){
-
+      if(count<0){
         clearInterval(t);
-
         giftExplosion();
 
         setTimeout(()=>{
-
           document.getElementById('loading').style.display='none';
-
           document.getElementById('content').style.display='block';
-
           document.getElementById('music').play();
-
           startChat();
-
         },800);
       }
 
     },1000);
 
   }else{
-
     alert('الباسورد غلط ❤️');
-
   }
 }
 
 function startChat(){
 
-  let chat =
-    document.getElementById('chat');
-
+  let chat=document.getElementById('chat');
   chat.style.display='block';
 
   let msgText = `بحبك يا كل حاجة في حياتي ❤️
 كل سنة وإنتي طيبة يا عيوني 🎉
-بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي بس عايز اعرفك حاجه حتي لو فضلنا ميت سنه منتكلمشي هتفضلي ف قلبي ي بت عارفه ليه هقولك عشان زياد ملوش غير ميوشته ومي ملهاش غير زوزتها ربنا يديني طولة العمر لغاية ما تبقي من نصيبي بس مش عايز حاجه من الدنيا غير انك تكوني حلالي بحبك ي احلي حاجه حصلتلي والحاجه ال انتي شيفاها تعب ايام واسابيع والله بس كله فدي اني اشوفك فرحانه وربنا يعلم اني لو اطول اجبلك نجمه من السما هعمل كدا بحبك اوي ي بت والله هرجع واقولك لو لف بيا الكون وقدامي العالم كله ونا مغمض هختار بنتي وحبيبتي وصاحبتي وحته مني وتربيتي مهما اتكلم مش هعرف اعبر عن جزء صغير حتي من اللي جوايا وبردو عايز اعرفك حاجه اي مش هنتكلم بس انا هكون عارف عنك كل حاجه ويوم لما اشوفك زعلانه تعبانه هتلاقيني ف ضهرك وعايز اطمنك عيني بس لو رمشت لغيرك اشيلها من جسمي وقلبي ال دق لمي ميدقشي لغيرها ولا يعوز غيرها عايزك ترفعي رأسي ي بت وتتجدعني ونا هفضل مستنيكي ومشاعري ليكي هتزيد مش هتقل ❤️`;
+بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي بس عايز اعرفك حاجه حتي لو فضلنا ميت سنه منتكلمشي هتفضلي ف قلبي ي بت عارفه ليه هقولك عشان زياد ملوش غير ميوشته ومي ملهاش غير زوزتها ربنا يديني طولة العمر لغاية ما تبقي من نصيبي بس مش عايز حاجه من الدنيا غير انك تكوني حلالي بحبك ي احلي حاجه حصلتلي والحاجه ال انتي شيفاها تعب ايام واسابيع والله بس كله فدي اني اشوفك فرحانه وربنا يعلم اني لو اطول اجبلك نجمه من السما هعمل كدا بحبك اوي ي بت والله هرجع واقولك لو لف بيا الكون وقدامي العالم كله ونا مغمض هختار بنتي وحبيبتي وصاحبتي وحته مني وتربيتي مهما اتكلم مش هعرف اعبر عن جزء صغير حتي من اللي جوايا وبردو عايز اعرفك حاجه اي مش هنتكلم بس انا هكون عارف عنك كل حاجه ويوم لما اشوفك زعلانه تعبانه هتلاقيني ف ضهرك وعايز اطمنك عيني بس لو رمشت لغيرك اشيلها من جسمي وقلبي ال دق لمي ميدقشي لغيرها ولا يعوز غيرها عايزك ترفعي رأسي ي بت وتتجدعني ونا هفضل مستنيكي ومشاعري ليكي هتزيد مش هتقل.`;
 
-  chat.innerHTML =
-    '<div class="msgBox" id="typing"></div>';
+  chat.innerHTML='<div class="msgBox" id="typing"></div>';
 
-  let box =
-    document.getElementById('typing');
+  let box=document.getElementById('typing');
+  let i=0;
 
-  let i = 0;
+  let typing=setInterval(()=>{
 
-  let typing = setInterval(()=>{
-
-    box.innerHTML += msgText[i];
-
+    box.innerHTML+=msgText[i];
     i++;
 
-    /* الاسكرول التلقائي */
-    window.scrollTo(
-      0,
-      document.body.scrollHeight
-    );
+    window.scrollTo(0,document.body.scrollHeight);
 
-    if(i >= msgText.length){
-
+    if(i>=msgText.length){
       clearInterval(typing);
 
-      let btn =
-        document.getElementById('memBtn');
-
+      let btn=document.getElementById('memBtn');
       btn.style.display='inline-block';
 
-      /* ينزل تلقائي للزرار */
-      setTimeout(()=>{
-
-        btn.scrollIntoView({
-          behavior:"smooth",
-          block:"center"
-        });
-
-      },300);
-
-      btn.onclick = function(){
-
-        window.location.href =
-          "memories.html";
-
+      btn.onclick=()=>{
+        window.location.href="memories.html";
       };
-
     }
 
   },40);
