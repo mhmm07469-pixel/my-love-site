@@ -2,8 +2,6 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Secret Love</title>
 
 <style>
@@ -14,12 +12,12 @@ body{
   color:white;
   text-align:center;
 
-  /* 🔥 أهم تعديل */
   overflow-y:auto;
   overflow-x:hidden;
+
   min-height:100vh;
 
-  -webkit-overflow-scrolling: touch;
+  scroll-behavior:smooth;
 }
 
 /* شاشة الاهتزاز */
@@ -76,12 +74,8 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-
-  /* 🔥 بدل 100vh */
-  min-height:100vh;
-
+  height:100vh;
   flex-direction:column;
-  padding:20px;
 }
 
 input,button{
@@ -90,27 +84,27 @@ input,button{
   border-radius:10px;
   border:none;
   font-size:16px;
-  width:90%;
-  max-width:320px;
 }
 
 button{
   background:linear-gradient(45deg,#ff4d88,#ff1f6a);
   color:white;
   cursor:pointer;
-  font-size:18px;
-  padding:14px;
 }
 
-#loading{display:none;font-size:32px;}
+#loading{
+  display:none;
+  font-size:40px;
+}
 
 #content{
   display:none;
   padding:20px;
+  padding-bottom:100px;
 }
 
 .name{
-  font-size:38px;
+  font-size:40px;
   color:#ff4d88;
   text-shadow:0 0 20px #ff4d88;
 }
@@ -118,7 +112,7 @@ button{
 #chat{
   display:none;
   text-align:right;
-  max-width:95%;
+  max-width:90%;
   margin:auto;
 }
 
@@ -130,9 +124,9 @@ button{
   display:inline-block;
   color:white;
   animation:pop 0.4s ease;
-
-  font-size:20px;
-  line-height:1.8;
+  line-height:1.9;
+  font-size:18px;
+  white-space:pre-wrap;
 }
 
 @keyframes pop{
@@ -141,15 +135,34 @@ button{
 }
 
 img{
-  width:95%;
-  max-width:420px;
+  width:90%;
   border-radius:15px;
   margin-top:10px;
   filter:blur(8px);
   transition:1s;
 }
 
-img.show{filter:blur(0);}
+img.show{
+  filter:blur(0);
+}
+
+/* الزرار */
+#memBtn{
+  display:none;
+  margin-top:25px;
+  animation:showBtn 1s ease;
+}
+
+@keyframes showBtn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
 </style>
 </head>
 
@@ -157,13 +170,20 @@ img.show{filter:blur(0);}
 
 <div id="login" class="center">
   <h2>ادخل الباسورد ❤️</h2>
+
   <input id="pass" type="password" placeholder="اكتبي الباسورد يا عيوني ❤️">
-  <button onclick="check()">خشي يا نور عين زياد ❤️</button>
+
+  <button onclick="check()">
+    خشي يا نور عين زياد ❤️
+  </button>
 </div>
 
 <div id="loading" class="center">
   <div id="count">3</div>
-  <div id="loadingText" style="margin-top:10px;font-size:18px;"></div>
+
+  <div id="loadingText"
+       style="margin-top:10px;font-size:18px;">
+  </div>
 </div>
 
 <audio id="tickSound">
@@ -184,13 +204,16 @@ img.show{filter:blur(0);}
 
   <div id="chat"></div>
 
-  <button id="memBtn" style="display:none; margin-top:20px;">
+  <button id="memBtn">
     دوسي هنا ❤️
   </button>
 
   <div id="images" style="display:none">
-    <img id="img1" src="https://i.ibb.co/hx10MrZq/01e5e4bffdbf4c0f38449a157123491a.webp">
-    <img id="img2" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1">
+    <img id="img1"
+    src="https://i.ibb.co/hx10MrZq/01e5e4bffdbf4c0f38449a157123491a.webp">
+
+    <img id="img2"
+    src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1">
   </div>
 
 </div>
@@ -199,20 +222,30 @@ img.show{filter:blur(0);}
 
 /* اهتزاز */
 function shakeScreen(){
+
   document.body.classList.add("screenShake");
-  setTimeout(()=>document.body.classList.remove("screenShake"),500);
+
+  setTimeout(()=>{
+    document.body.classList.remove("screenShake");
+  },500);
+
 }
 
 /* انفجار */
 function giftExplosion(){
+
   shakeScreen();
 
   const items = ["❤️","💖","✨","🎁","🌹","💌"];
 
   for(let i=0;i<25;i++){
+
     let el = document.createElement("div");
+
     el.className = "burst";
-    el.innerText = items[Math.floor(Math.random()*items.length)];
+
+    el.innerText =
+      items[Math.floor(Math.random()*items.length)];
 
     el.style.left = "50vw";
     el.style.top = "50vh";
@@ -225,25 +258,38 @@ function giftExplosion(){
 
     document.body.appendChild(el);
 
-    setTimeout(()=>el.remove(),1000);
+    setTimeout(()=>{
+      el.remove();
+    },1000);
+
   }
 }
 
 /* هدايا نازلة */
 function spawnGift(){
+
   const emojis = ["❤️","💖","✨","🎁","🌹"];
 
   for(let i=0;i<10;i++){
+
     let el = document.createElement("div");
+
     el.className = "fall";
-    el.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+    el.innerText =
+      emojis[Math.floor(Math.random()*emojis.length)];
 
     el.style.left = Math.random()*100 + "vw";
-    el.style.animationDuration = (2 + Math.random()*2) + "s";
+
+    el.style.animationDuration =
+      (2 + Math.random()*2) + "s";
 
     document.body.appendChild(el);
 
-    setTimeout(()=>el.remove(),4000);
+    setTimeout(()=>{
+      el.remove();
+    },4000);
+
   }
 }
 
@@ -252,22 +298,29 @@ function check(){
   if(document.getElementById('pass').value==='love mai'){
 
     document.getElementById('login').style.display='none';
+
     document.getElementById('loading').style.display='flex';
 
     document.getElementById('heartSound').play();
 
     let count = 3;
-    let el = document.getElementById('count');
-    let tick = document.getElementById('tickSound');
-    let loadingText = document.getElementById('loadingText');
 
-    loadingText.innerText = "جاري تحميل الهدية ❤️";
+    let el = document.getElementById('count');
+
+    let tick = document.getElementById('tickSound');
+
+    let loadingText =
+      document.getElementById('loadingText');
+
+    loadingText.innerText =
+      "جاري تحميل الهدية ❤️";
 
     let t = setInterval(()=>{
 
       el.innerText = count;
 
       tick.currentTime = 0;
+
       tick.play();
 
       spawnGift();
@@ -275,10 +328,14 @@ function check(){
       count--;
 
       if(count === 0){
-        loadingText.innerText = "جاري فتح الهدية ❤️";
+
+        loadingText.innerText =
+          "جاري فتح الهدية ❤️";
+
       }
 
       if(count < 0){
+
         clearInterval(t);
 
         giftExplosion();
@@ -286,6 +343,7 @@ function check(){
         setTimeout(()=>{
 
           document.getElementById('loading').style.display='none';
+
           document.getElementById('content').style.display='block';
 
           document.getElementById('music').play();
@@ -297,39 +355,70 @@ function check(){
 
     },1000);
 
-  } else {
+  }else{
+
     alert('الباسورد غلط ❤️');
+
   }
 }
 
 function startChat(){
 
-  let chat=document.getElementById('chat');
+  let chat =
+    document.getElementById('chat');
+
   chat.style.display='block';
 
   let msgText = `بحبك يا كل حاجة في حياتي ❤️
 كل سنة وإنتي طيبة يا عيوني 🎉
-بمناسبة العيد ❤️`;
+بمناسبة العيد اي ف عدين مش هحضرهم معاكي بس غصب عني بقي بس عايز اعرفك حاجه حتي لو فضلنا ميت سنه منتكلمشي هتفضلي ف قلبي ي بت عارفه ليه هقولك عشان زياد ملوش غير ميوشته ومي ملهاش غير زوزتها ربنا يديني طولة العمر لغاية ما تبقي من نصيبي بس مش عايز حاجه من الدنيا غير انك تكوني حلالي بحبك ي احلي حاجه حصلتلي والحاجه ال انتي شيفاها تعب ايام واسابيع والله بس كله فدي اني اشوفك فرحانه وربنا يعلم اني لو اطول اجبلك نجمه من السما هعمل كدا بحبك اوي ي بت والله هرجع واقولك لو لف بيا الكون وقدامي العالم كله ونا مغمض هختار بنتي وحبيبتي وصاحبتي وحته مني وتربيتي مهما اتكلم مش هعرف اعبر عن جزء صغير حتي من اللي جوايا وبردو عايز اعرفك حاجه اي مش هنتكلم بس انا هكون عارف عنك كل حاجه ويوم لما اشوفك زعلانه تعبانه هتلاقيني ف ضهرك وعايز اطمنك عيني بس لو رمشت لغيرك اشيلها من جسمي وقلبي ال دق لمي ميدقشي لغيرها ولا يعوز غيرها عايزك ترفعي رأسي ي بت وتتجدعني ونا هفضل مستنيكي ومشاعري ليكي هتزيد مش هتقل ❤️`;
 
-  chat.innerHTML='<div class="msgBox" id="typing"></div>';
+  chat.innerHTML =
+    '<div class="msgBox" id="typing"></div>';
 
-  let box=document.getElementById('typing');
-  let i=0;
+  let box =
+    document.getElementById('typing');
 
-  let typing=setInterval(()=>{
+  let i = 0;
+
+  let typing = setInterval(()=>{
 
     box.innerHTML += msgText[i];
+
     i++;
 
-    if(i>=msgText.length){
+    /* الاسكرول التلقائي */
+    window.scrollTo(
+      0,
+      document.body.scrollHeight
+    );
+
+    if(i >= msgText.length){
+
       clearInterval(typing);
 
-      let btn = document.getElementById('memBtn');
-      btn.style.display='block';
+      let btn =
+        document.getElementById('memBtn');
+
+      btn.style.display='inline-block';
+
+      /* ينزل تلقائي للزرار */
+      setTimeout(()=>{
+
+        btn.scrollIntoView({
+          behavior:"smooth",
+          block:"center"
+        });
+
+      },300);
 
       btn.onclick = function(){
-        window.location.href = "memories.html";
+
+        window.location.href =
+          "memories.html";
+
       };
+
     }
 
   },40);
