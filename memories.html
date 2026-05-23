@@ -11,6 +11,7 @@ body{
   color:white;
   text-align:center;
   font-family:Arial;
+  overflow-x:hidden;
 }
 
 h1{
@@ -19,13 +20,99 @@ h1{
   text-shadow:0 0 20px #ff4d88;
 }
 
-img{
-  width:85%;
-  margin-top:20px;
-  border-radius:15px;
-  box-shadow:0 0 20px rgba(255,0,100,0.3);
+.start-title{
+  margin-top:10px;
+  font-size:18px;
+  opacity:0.9;
 }
 
+#date{
+  margin-top:10px;
+  font-size:16px;
+  opacity:0.8;
+}
+
+/* الصورة */
+img{
+  width:90%;
+  margin-top:15px;
+  border-radius:15px;
+}
+
+/* cards */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  padding:20px;
+  margin-top:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:15px;
+  padding:20px 10px;
+}
+
+.card .num{
+  font-size:26px;
+  color:#ff4d88;
+  font-weight:bold;
+}
+
+.card .label{
+  margin-top:5px;
+  font-size:14px;
+  opacity:0.8;
+}
+
+/* الجملة */
+.memory-line{
+  margin-top:20px;
+  font-size:18px;
+  padding:12px 15px;
+  display:inline-block;
+  background:rgba(255,77,136,0.15);
+  border:1px solid rgba(255,77,136,0.4);
+  border-radius:12px;
+  color:#fff;
+  box-shadow:0 0 15px rgba(255,77,136,0.3);
+  animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{
+    transform:scale(1);
+    box-shadow:0 0 10px rgba(255,77,136,0.2);
+  }
+  to{
+    transform:scale(1.05);
+    box-shadow:0 0 20px rgba(255,77,136,0.6);
+  }
+}
+
+/* الكابشن */
+.caption{
+  margin-top:8px;
+  font-size:15px;
+  opacity:0.9;
+}
+
+/* زرار */
+.buttons{
+  margin-top:20px;
+}
+
+button{
+  padding:10px 15px;
+  margin:5px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#ff4d88;
+  color:white;
+}
 </style>
 </head>
 
@@ -33,15 +120,95 @@ img{
 
 <h1>حاجات بيني وبين القمر ❤️</h1>
 
-<!-- 🔊 حط هنا الأغنية الجديدة -->
-<audio id="music" autoplay loop>
-  <source src="PUT-YOUR-NEW-SONG-LINK-HERE.mp3">
-</audio>
+<div class="start-title">يوم بداية حياتي مع القمر 🌙❤️</div>
+<div id="date">20/2/2025</div>
 
-<!-- 📸 الصور -->
-<img src="YOUR-IMAGE-1.jpg">
-<img src="YOUR-IMAGE-2.jpg">
-<img src="YOUR-IMAGE-3.jpg">
+<!-- الصورة القديمة -->
+<img src="https://i.postimg.cc/MKHsQ0Jx/IMG-20260522-231927-667.jpg">
+
+<!-- العداد -->
+<div class="cards">
+  <div class="card">
+    <div class="num" id="days">0</div>
+    <div class="label">أيام</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="hours">0</div>
+    <div class="label">ساعات</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="minutes">0</div>
+    <div class="label">دقايق</div>
+  </div>
+
+  <div class="card">
+    <div class="num" id="seconds">0</div>
+    <div class="label">ثواني</div>
+  </div>
+</div>
+
+<!-- الجملة -->
+<div class="memory-line">
+✨ تعالى نفتكر كام حاجة سوا ✨
+</div>
+
+<!-- الصورة اللي هتتغير -->
+<img id="memImg" src="https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg">
+
+<!-- الكابشن -->
+<div class="caption" id="caption">
+بداية معرفتي بالقمر ❤️
+</div>
+
+<!-- الأزرار -->
+<div class="buttons">
+  <button onclick="prev()">Back</button>
+  <button onclick="next()">شوف اللي بعدها 💌</button>
+</div>
+
+<script>
+
+/* العداد */
+let startDate = new Date("2025-02-20T00:00:00");
+
+function updateCounter(){
+  let now = new Date();
+  let diff = now - startDate;
+
+  let seconds = Math.floor(diff / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
+  let days = Math.floor(hours / 24);
+
+  document.getElementById("days").innerText = days;
+  document.getElementById("hours").innerText = hours % 24;
+  document.getElementById("minutes").innerText = minutes % 60;
+  document.getElementById("seconds").innerText = seconds % 60;
+}
+
+setInterval(updateCounter,1000);
+updateCounter();
+
+/* الصور */
+function next(){
+  document.getElementById("memImg").src =
+    "https://i.postimg.cc/VL9P4rY3/IMG-20260523-WA0019.jpg";
+
+  document.getElementById("caption").innerText =
+    "البدايات مع حبيب عمري ❤️";
+}
+
+function prev(){
+  document.getElementById("memImg").src =
+    "https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg";
+
+  document.getElementById("caption").innerText =
+    "بداية معرفتي بالقمر ❤️";
+}
+
+</script>
 
 </body>
 </html>
