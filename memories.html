@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-
 <meta charset="UTF-8">
+
+<!-- ⭐ ده أهم تعديل عشان الموبايل -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Our Memories</title>
 
 <style>
-
-*{
-  box-sizing:border-box;
-}
 
 body{
   margin:0;
@@ -19,17 +16,20 @@ body{
   color:white;
   text-align:center;
   font-family:Arial;
+
   overflow-x:hidden;
   width:100%;
-  min-height:100vh;
-  padding-bottom:40px;
+}
+
+/* تحسين عرض الصفحة على الموبايل */
+*{
+  box-sizing:border-box;
 }
 
 h1{
   margin-top:20px;
   color:#ff4d88;
   text-shadow:0 0 20px #ff4d88;
-  font-size:32px;
   padding:0 10px;
 }
 
@@ -52,9 +52,6 @@ img{
   max-width:500px;
   margin-top:15px;
   border-radius:15px;
-  height:auto;
-  box-shadow:0 0 20px rgba(255,77,136,0.25);
-  transition:0.4s;
 }
 
 /* cards */
@@ -64,10 +61,10 @@ img{
   gap:15px;
   padding:20px;
   margin-top:20px;
-  width:100%;
+
   max-width:500px;
-  margin-right:auto;
   margin-left:auto;
+  margin-right:auto;
 }
 
 .card{
@@ -75,7 +72,6 @@ img{
   border:1px solid rgba(255,255,255,0.1);
   border-radius:15px;
   padding:20px 10px;
-  backdrop-filter:blur(5px);
 }
 
 .card .num{
@@ -96,14 +92,15 @@ img{
   font-size:18px;
   padding:12px 15px;
   display:inline-block;
+
+  max-width:400px;
+  width:90%;
   background:rgba(255,77,136,0.15);
   border:1px solid rgba(255,77,136,0.4);
   border-radius:12px;
   color:#fff;
   box-shadow:0 0 15px rgba(255,77,136,0.3);
   animation:glow 2s infinite alternate;
-  width:90%;
-  max-width:400px;
 }
 
 @keyframes glow{
@@ -112,61 +109,32 @@ img{
     box-shadow:0 0 10px rgba(255,77,136,0.2);
   }
   to{
-    transform:scale(1.03);
+    transform:scale(1.05);
     box-shadow:0 0 20px rgba(255,77,136,0.6);
   }
 }
 
 /* الكابشن */
 .caption{
-  margin-top:12px;
-  font-size:17px;
-  opacity:0.95;
-  padding:0 15px;
-  line-height:1.8;
+  margin-top:8px;
+  font-size:15px;
+  opacity:0.9;
+  padding:0 10px;
 }
 
-/* الأزرار */
+/* زرار */
 .buttons{
-  margin-top:25px;
+  margin-top:20px;
 }
 
 button{
-  padding:12px 18px;
+  padding:10px 15px;
   margin:5px;
   border:none;
-  border-radius:12px;
+  border-radius:10px;
   cursor:pointer;
   background:#ff4d88;
   color:white;
-  font-size:15px;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.05);
-  box-shadow:0 0 15px rgba(255,77,136,0.5);
-}
-
-/* للموبايل */
-@media(max-width:480px){
-
-  h1{
-    font-size:26px;
-  }
-
-  .start-title{
-    font-size:16px;
-  }
-
-  .memory-line{
-    font-size:16px;
-  }
-
-  .card .num{
-    font-size:22px;
-  }
-
 }
 
 </style>
@@ -176,16 +144,12 @@ button:hover{
 
 <h1>حاجات بيني وبين القمر ❤️</h1>
 
-<div class="start-title">
-يوم بداية حياتي مع القمر 🌙❤️
-</div>
+<div class="start-title">يوم بداية حياتي مع القمر 🌙❤️</div>
 
 <div id="date">20/2/2025</div>
 
-<!-- الصورة القديمة -->
 <img src="https://i.postimg.cc/MKHsQ0Jx/IMG-20260522-231927-667.jpg">
 
-<!-- العداد -->
 <div class="cards">
 
   <div class="card">
@@ -210,34 +174,27 @@ button:hover{
 
 </div>
 
-<!-- الجملة -->
 <div class="memory-line">
 ✨ تعالى نفتكر كام حاجة سوا ✨
 </div>
 
-<!-- الصورة اللي هتتغير -->
 <img id="memImg"
 src="https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg">
 
-<!-- الكابشن -->
 <div class="caption" id="caption">
 بداية معرفتي بالقمر ❤️
 </div>
 
-<!-- الأزرار -->
 <div class="buttons">
-  <button onclick="next()">شوف اللي بعدها 💌</button>
   <button onclick="prev()">Back</button>
+  <button onclick="next()">شوف اللي بعدها 💌</button>
 </div>
 
 <script>
 
-/* العداد */
-
 let startDate = new Date("2025-02-20T00:00:00");
 
 function updateCounter(){
-
   let now = new Date();
   let diff = now - startDate;
 
@@ -250,33 +207,25 @@ function updateCounter(){
   document.getElementById("hours").innerText = hours % 24;
   document.getElementById("minutes").innerText = minutes % 60;
   document.getElementById("seconds").innerText = seconds % 60;
-
 }
 
 setInterval(updateCounter,1000);
-
 updateCounter();
 
-/* الصور */
-
 function next(){
-
   document.getElementById("memImg").src =
-  "https://i.postimg.cc/VL9P4rY3/IMG-20260523-WA0019.jpg";
+    "https://i.postimg.cc/VL9P4rY3/IMG-20260523-WA0019.jpg";
 
   document.getElementById("caption").innerText =
-  "البدايات مع حبيب عمري ❤️";
-
+    "البدايات مع حبيب عمري ❤️";
 }
 
 function prev(){
-
   document.getElementById("memImg").src =
-  "https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg";
+    "https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg";
 
   document.getElementById("caption").innerText =
-  "بداية معرفتي بالقمر ❤️";
-
+    "بداية معرفتي بالقمر ❤️";
 }
 
 </script>
