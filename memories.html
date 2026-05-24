@@ -2,29 +2,33 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Memories</title>
 
 <style>
+
+/* ===== أساس الصفحة (iPhone feel) ===== */
 body{
   margin:0;
-  background:radial-gradient(circle,#1a0015,#000);
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
+  background:linear-gradient(180deg,#0b0b12,#141428);
   color:white;
   text-align:center;
-  font-family:Arial;
   overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
 }
 
 /* ===== شاشة القلب ===== */
 #loveGate{
   position:fixed;
-  width:100%;
-  height:100%;
-  background:radial-gradient(circle,#000,#12000f);
+  inset:0;
+  background:rgba(0,0,0,0.95);
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   z-index:999999;
+  backdrop-filter:blur(12px);
 }
 
 .heart{
@@ -32,307 +36,267 @@ body{
   cursor:pointer;
   transition:0.3s;
   user-select:none;
-  filter:grayscale(1);
-  transform:scale(1);
 }
 
 .heart.filled{
-  filter:grayscale(0);
-  text-shadow:0 0 30px #ff2d55;
+  text-shadow:0 0 25px #ff2d55;
   transform:scale(1.1);
 }
 
 #hint{
-  margin-top:20px;
-  font-size:18px;
-  opacity:0.8;
+  margin-top:15px;
+  font-size:16px;
+  opacity:0.7;
 }
 
-/* ===== باقي التصميم ===== */
+/* ===== العنوان ===== */
 h1{
   margin-top:20px;
+  font-size:22px;
   color:#ff4d88;
-  text-shadow:0 0 20px #ff4d88;
 }
 
-.start-title{
-  margin-top:10px;
-  font-size:18px;
-  opacity:0.9;
+/* ===== النصوص الصغيرة ===== */
+.start-title,#date{
+  font-size:14px;
+  opacity:0.7;
+  margin-top:5px;
 }
 
-#date{
-  margin-top:10px;
-  font-size:16px;
-  opacity:0.8;
-}
-
+/* ===== الصور ===== */
 img{
-  width:90%;
+  width:92%;
+  max-width:420px;
   margin-top:15px;
-  border-radius:15px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
+/* ===== الكروت (iOS glass) ===== */
 .cards{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  padding:20px;
+  gap:12px;
+  padding:15px;
+  max-width:420px;
+  margin:auto;
   margin-top:20px;
 }
 
 .card{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:15px;
-  padding:20px 10px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:18px;
+  padding:18px;
+  backdrop-filter:blur(12px);
 }
 
 .card .num{
-  font-size:26px;
-  color:#ff4d88;
+  font-size:22px;
   font-weight:bold;
+  color:#ff4d88;
 }
 
 .card .label{
-  margin-top:5px;
+  font-size:12px;
+  opacity:0.7;
+}
+
+/* ===== memory line ===== */
+.memory-line{
+  margin-top:18px;
+  font-size:15px;
+  padding:10px 14px;
+  display:inline-block;
+  background:rgba(255,255,255,0.08);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter:blur(10px);
+}
+
+/* ===== caption ===== */
+.caption{
   font-size:14px;
   opacity:0.8;
-}
-
-.memory-line{
-  margin-top:20px;
-  font-size:18px;
-  padding:12px 15px;
-  display:inline-block;
-  background:rgba(255,77,136,0.15);
-  border:1px solid rgba(255,77,136,0.4);
-  border-radius:12px;
-  color:#fff;
-  box-shadow:0 0 15px rgba(255,77,136,0.3);
-  animation:glow 2s infinite alternate;
-}
-
-@keyframes glow{
-  from{
-    transform:scale(1);
-    box-shadow:0 0 10px rgba(255,77,136,0.2);
-  }
-  to{
-    transform:scale(1.05);
-    box-shadow:0 0 20px rgba(255,77,136,0.6);
-  }
-}
-
-.caption{
   margin-top:8px;
-  font-size:15px;
-  opacity:0.9;
 }
 
+/* ===== buttons iOS ===== */
 .buttons{
-  margin-top:20px;
+  margin-top:15px;
 }
 
 button{
-  padding:10px 15px;
+  padding:10px 16px;
   margin:5px;
   border:none;
-  border-radius:10px;
-  cursor:pointer;
+  border-radius:12px;
   background:#ff4d88;
   color:white;
+  font-size:14px;
+  cursor:pointer;
 }
+
+/* ===== القلوب (مهم جدًا) ===== */
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+.heart-float{
+  position:absolute;
+  font-size:20px;
+  opacity:0.7;
+  animation: fall linear forwards;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10vh); opacity:0;}
+  10%{opacity:1;}
+  100%{transform:translateY(110vh); opacity:0;}
+}
+
 </style>
 </head>
 
 <body>
 
+<div class="hearts"></div>
+
 <!-- ❤️ القلب -->
 <div id="loveGate">
   <div id="heart" class="heart">🤍</div>
-  <div id="hint">اضغط على القلب لحد ما يمتلئ ❤️</div>
+  <div id="hint">اضغط على القلب ❤️</div>
 </div>
 
 <!-- 🎵 الأغنية -->
 <audio id="bgMusic" loop>
-  <source src="https://files.catbox.moe/jyluzk.mp3" type="audio/mp3">
+  <source src="https://files.catbox.moe/jyluzk.mp3">
 </audio>
 
 <h1>حاجات بيني وبين القمر ❤️</h1>
 
-<div class="start-title">يوم بداية حياتي مع القمر 🌙❤️</div>
+<div class="start-title">يوم بداية حياتي</div>
 <div id="date">20/2/2025</div>
 
 <img src="https://i.postimg.cc/MKHsQ0Jx/IMG-20260522-231927-667.jpg">
 
 <div class="cards">
-  <div class="card">
-    <div class="num" id="days">0</div>
-    <div class="label">أيام</div>
-  </div>
-
-  <div class="card">
-    <div class="num" id="hours">0</div>
-    <div class="label">ساعات</div>
-  </div>
-
-  <div class="card">
-    <div class="num" id="minutes">0</div>
-    <div class="label">دقايق</div>
-  </div>
-
-  <div class="card">
-    <div class="num" id="seconds">0</div>
-    <div class="label">ثواني</div>
-  </div>
+  <div class="card"><div class="num" id="days">0</div><div class="label">أيام</div></div>
+  <div class="card"><div class="num" id="hours">0</div><div class="label">ساعات</div></div>
+  <div class="card"><div class="num" id="minutes">0</div><div class="label">دقايق</div></div>
+  <div class="card"><div class="num" id="seconds">0</div><div class="label">ثواني</div></div>
 </div>
 
-<div class="memory-line">
-✨ تعالى نفتكر كام حاجة سوا ✨
-</div>
+<div class="memory-line">✨ تعالى نفتكر كام حاجة سوا ✨</div>
 
 <img id="memImg" src="https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg">
 
-<div class="caption" id="caption">
-بداية معرفتي بالقمر ❤️
-</div>
+<div class="caption" id="caption">بداية معرفتي بالقمر ❤️</div>
 
 <div class="buttons">
   <button onclick="prev()">Back</button>
-  <button onclick="next()">شوف اللي بعدها 💌</button>
+  <button onclick="next()">Next 💌</button>
 </div>
 
 <script>
 
-/* العداد */
+/* ===== العداد ===== */
 let startDate = new Date("2025-02-20T00:00:00");
 
-function updateCounter(){
-  let now = new Date();
-  let diff = now - startDate;
+setInterval(()=>{
+  let diff = new Date()-startDate;
+  let s=Math.floor(diff/1000);
+  let m=Math.floor(s/60);
+  let h=Math.floor(m/60);
+  let d=Math.floor(h/24);
 
-  let seconds = Math.floor(diff / 1000);
-  let minutes = Math.floor(seconds / 60);
-  let hours = Math.floor(minutes / 60);
-  let days = Math.floor(hours / 24);
+  days.innerText=d;
+  hours.innerText=h%24;
+  minutes.innerText=m%60;
+  seconds.innerText=s%60;
+},1000);
 
-  document.getElementById("days").innerText = days;
-  document.getElementById("hours").innerText = hours % 24;
-  document.getElementById("minutes").innerText = minutes % 60;
-  document.getElementById("seconds").innerText = seconds % 60;
-}
+/* ===== الصور ===== */
+let current=0;
 
-setInterval(updateCounter,1000);
-updateCounter();
-
-/* الصور */
-
-let current = 0;
-
-const images = [
-
-  "https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg",
-
-  "https://i.postimg.cc/VL9P4rY3/IMG-20260523-WA0019.jpg",
-
-  "https://i.postimg.cc/KjvgrnWF/IMG-20260523-WA0017.jpg",
-
-  "https://i.postimg.cc/4xCxX611/IMG-20260523-WA0004.jpg",
-
-  "https://i.postimg.cc/7PF5LrHY/IMG-20260523-WA0011.jpg",
-
-  "https://i.postimg.cc/52n9LhV8/IMG-20260523-WA0007.jpg",
-
-  "https://i.postimg.cc/gjQ8zxgB/IMG-20260523-WA0025.jpg",
-
-  "https://i.postimg.cc/xdnH1DPK/IMG-20260523-WA0024.jpg"
-
+const images=[
+"https://i.postimg.cc/yxCPWNSR/IMG-20260523-WA0012.jpg",
+"https://i.postimg.cc/VL9P4rY3/IMG-20260523-WA0019.jpg",
+"https://i.postimg.cc/KjvgrnWF/IMG-20260523-WA0017.jpg",
+"https://i.postimg.cc/4xCxX611/IMG-20260523-WA0004.jpg",
+"https://i.postimg.cc/7PF5LrHY/IMG-20260523-WA0011.jpg",
+"https://i.postimg.cc/52n9LhV8/IMG-20260523-WA0007.jpg",
+"https://i.postimg.cc/gjQ8zxgB/IMG-20260523-WA0025.jpg",
+"https://i.postimg.cc/xdnH1DPK/IMG-20260523-WA0024.jpg"
 ];
 
-const captions = [
-
-  "بداية معرفتي بالقمر ❤️",
-
-  "البدايات مع حبيب عمري ❤️",
-
-  "😂🙂 نبذة عن ذكائك",
-
-  "لا متخديش ف بالك دا وحنا 🙂 هبل 😂",
-
-  "لا دا العادي بتاعك ونتي مطلعه 😂😂 عين امي ف المذاكرة معاكي",
-
-  "اول عيد ميلاد ليا معاكي ❣️😂",
-
-  "هنا بعد ما علمتيني اطبخ ❤️",
-
-  "اول عيد ميلاد لبنتي وحبيبتي وشريكة عمري معايا ❣️"
-
+const captions=[
+"بداية معرفتي بالقمر ❤️",
+"البدايات مع حبيب عمري ❤️",
+"😂🙂 نبذة عن ذكائك",
+"😂❣️لا متخديش ف بالك دا وحنا هبل ",
+"لا دا العادي بتاعك ونتي مطلعه عين 😂😂امي ف المذاكره معاكي ",
+"😂❣️اول عيد ميلاد ليا معاكي",
+"🫂هنا بعد ما علمتيني اطبخ",
+"اول عيد ميلاد لبنتي وحبيتي وشريكة 💑عمري وام عيالي معايا "
 ];
 
 function next(){
-
-  if(current < images.length - 1){
-
+  if(current<images.length-1){
     current++;
-
-    document.getElementById("memImg").src =
-      images[current];
-
-    document.getElementById("caption").innerText =
-      captions[current];
+    memImg.src=images[current];
+    caption.innerText=captions[current];
   }
 }
 
 function prev(){
-
-  if(current > 0){
-
+  if(current>0){
     current--;
-
-    document.getElementById("memImg").src =
-      images[current];
-
-    document.getElementById("caption").innerText =
-      captions[current];
+    memImg.src=images[current];
+    caption.innerText=captions[current];
   }
 }
 
 /* ===== القلب ===== */
+const heart=document.getElementById("heart");
+const gate=document.getElementById("loveGate");
+const music=document.getElementById("bgMusic");
 
-const heart = document.getElementById("heart");
-const gate = document.getElementById("loveGate");
-const music = document.getElementById("bgMusic");
+let fill=0;
 
-let fill = 0;
-
-heart.addEventListener("click", () => {
+heart.onclick=()=>{
 
   fill++;
 
-  let states = ["🤍","💔","🩷","💖","❤️"];
-  heart.innerText = states[Math.min(fill,4)];
+  heart.innerText=["🤍","🩷","💖","❤️","❤️"][fill];
 
-  heart.classList.add("filled");
-
-  heart.style.transform = "scale(1.2)";
-
-  setTimeout(()=>{
-    heart.style.transform="scale(1)";
-  },150);
-
-  if(fill >= 4){
-
-    gate.style.opacity = "0";
-    gate.style.transition = "0.6s";
-
+  if(fill>=4){
+    gate.style.display="none";
     music.play().catch(()=>{});
-
-    setTimeout(()=>{
-      gate.style.display = "none";
-    },600);
+    startHearts();
   }
-});
+};
+
+/* ===== قلوب نازلة ===== */
+function startHearts(){
+  const box=document.querySelector(".hearts");
+
+  setInterval(()=>{
+    const h=document.createElement("div");
+    h.className="heart-float";
+    h.innerText="💖";
+
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(3+Math.random()*3)+"s";
+
+    box.appendChild(h);
+
+    setTimeout(()=>h.remove(),6000);
+  },300);
+}
 
 </script>
 
