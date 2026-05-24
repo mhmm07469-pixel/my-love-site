@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Final Memory</title>
+
+<style>
+body{
+  margin:0;
+  background:linear-gradient(180deg,#0b0b12,#141428);
+  color:white;
+  font-family:"Segoe UI", Arial;
+  min-height:100vh;
+}
+
+/* ===== شاشة القفل ===== */
+#lockScreen{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.95);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+  backdrop-filter:blur(10px);
+}
+
+#lockScreen input{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  width:250px;
+  text-align:center;
+  font-size:16px;
+  outline:none;
+}
+
+#lockScreen button{
+  margin-top:10px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:#ff4d88;
+  color:white;
+  cursor:pointer;
+}
+
+#error{
+  margin-top:10px;
+  color:#ff6b6b;
+  font-size:14px;
+}
+
+/* ===== المحتوى ===== */
+img{
+  width:90%;
+  max-width:400px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  display:block;
+  margin:20px auto 10px auto;
+}
+
+p{
+  margin:15px 15px 60px 15px; /* زودنا تحت عشان يبان فيه scroll */
+  font-size:16px;
+  line-height:1.9;
+  opacity:0.9;
+}
+
+/* ===== مؤشر إن فيه محتوى تحت ===== */
+body::after{
+  content:"⬇ اسحب لتكملة القراءة";
+  position:fixed;
+  bottom:10px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:12px;
+  opacity:0.5;
+  animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+  0%,100%{opacity:0.2;}
+  50%{opacity:0.7;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- شاشة القفل -->
+<div id="lockScreen">
+  <h2>اكتب الكود 💌</h2>
+  <input type="text" id="code" placeholder="اكتب هنا...">
+  <button onclick="check()">دخول</button>
+  <div id="error"></div>
+</div>
+
+<!-- المحتوى الأصلي -->
+<img src="https://i.postimg.cc/zGJQ1Dfg/IMG-20260524-173409.jpg">
+
+<p>
+اللهم استودعتك من احب اللهم فاحفظها وانت خير الحافظين<br>
+اللهم كن لها ولا تكن عليها<br>
+اللهم ان سألتك فاعطها<br>
+اللهم ان دعتك فاجبها<br>
+وان مرضت فاشفها وان تعبت فعافها<br>
+اللهم قلبها حتى يطمئن قلبي يا الله
+</p>
+
+<audio id="finalSound">
+  <source src="https://files.catbox.moe/839m5h.mp3">
+</audio>
+
+<script>
+
+function check(){
+  let val = document.getElementById("code").value.trim();
+  let sound = document.getElementById("finalSound");
+
+  if(val === "دكتورتي المستقبلية"){
+    document.getElementById("lockScreen").style.display="none";
+    sound.play().catch(()=>{});
+  } else {
+    document.getElementById("error").innerText = "الكود غلط ❌";
+  }
+}
+
+</script>
+
+</body>
+</html>
