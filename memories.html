@@ -16,6 +16,13 @@ body{
   text-align:center;
   overflow-x:hidden;
   -webkit-text-size-adjust:100%;
+  transition:0.8s ease;
+}
+
+/* ===== أنيميشن الخروج ===== */
+body.fade-out{
+  opacity:0;
+  transform:scale(1.05);
 }
 
 /* ===== شاشة القلب ===== */
@@ -72,7 +79,7 @@ img{
   box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
-/* ===== الكروت (iOS glass) ===== */
+/* ===== الكروت ===== */
 .cards{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -121,7 +128,7 @@ img{
   margin-top:8px;
 }
 
-/* ===== buttons iOS ===== */
+/* ===== buttons ===== */
 .buttons{
   margin-top:15px;
 }
@@ -137,7 +144,7 @@ button{
   cursor:pointer;
 }
 
-/* ===== القلوب (مهم جدًا) ===== */
+/* ===== القلوب ===== */
 .hearts{
   position:fixed;
   inset:0;
@@ -165,13 +172,13 @@ button{
 
 <div class="hearts"></div>
 
-<!-- ❤️ القلب -->
+<!-- القلب -->
 <div id="loveGate">
   <div id="heart" class="heart">🤍</div>
   <div id="hint">اضغط على القلب ❤️</div>
 </div>
 
-<!-- 🎵 الأغنية -->
+<!-- الموسيقى -->
 <audio id="bgMusic" loop>
   <source src="https://files.catbox.moe/jyluzk.mp3">
 </audio>
@@ -230,7 +237,8 @@ const images=[
 "https://i.postimg.cc/7PF5LrHY/IMG-20260523-WA0011.jpg",
 "https://i.postimg.cc/52n9LhV8/IMG-20260523-WA0007.jpg",
 "https://i.postimg.cc/gjQ8zxgB/IMG-20260523-WA0025.jpg",
-"https://i.postimg.cc/xdnH1DPK/IMG-20260523-WA0024.jpg"
+"https://i.postimg.cc/xdnH1DPK/IMG-20260523-WA0024.jpg",
+"https://i.postimg.cc/k58zTPb2/file-00000000cb7871f4a7145b25d6740c65.png"
 ];
 
 const captions=[
@@ -241,22 +249,29 @@ const captions=[
 "لا دا العادي بتاعك ونتي مطلعه عين 😂😂امي ف المذاكره معاكي ",
 "😂❣️اول عيد ميلاد ليا معاكي",
 "🫂هنا بعد ما علمتيني اطبخ",
-"اول عيد ميلاد لبنتي وحبيتي وشريكة 💑عمري وام عيالي معايا "
+"اول عيد ميلاد لبنتي وحبيتي وشريكة 💑عمري وام عيالي معايا ",
+"مسيري هجييلك"
 ];
 
 function next(){
-  if(current<images.length-1){
+  if(current < images.length - 1){
     current++;
-    memImg.src=images[current];
-    caption.innerText=captions[current];
+    memImg.src = images[current];
+    caption.innerText = captions[current];
+  } else {
+    document.body.classList.add("fade-out");
+
+    setTimeout(()=>{
+      window.location.href = "final.html";
+    }, 800);
   }
 }
 
 function prev(){
   if(current>0){
     current--;
-    memImg.src=images[current];
-    caption.innerText=captions[current];
+    memImg.src = images[current];
+    caption.innerText = captions[current];
   }
 }
 
@@ -270,7 +285,6 @@ let fill=0;
 heart.onclick=()=>{
 
   fill++;
-
   heart.innerText=["🤍","🩷","💖","❤️","❤️"][fill];
 
   if(fill>=4){
@@ -280,7 +294,7 @@ heart.onclick=()=>{
   }
 };
 
-/* ===== قلوب نازلة ===== */
+/* ===== قلوب ===== */
 function startHearts(){
   const box=document.querySelector(".hearts");
 
